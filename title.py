@@ -6,7 +6,7 @@ import random
 def parseExistingTitles(file):
 
     # Read in the card names from a CSV file to a list, ignoring empty rows within the 'Card Name' column.
-    existing_names = pd.read_csv(file)['Card Name'].dropna().values.tolist()
+    existing_names = pd.read_csv(file)['card'].dropna().values.tolist()
 
     nouns = []
     adjectives = []
@@ -27,6 +27,7 @@ def parseExistingTitles(file):
 
     return nouns, adjectives
 
+
 # Removes duplicates from a list while still preserving the order.
 def dedup(seq):
     seen = set()
@@ -45,7 +46,7 @@ def createNewTitle(nouns, adjectives):
         component = []
 
         j = 0
-        while(j < no_components):
+        while j < no_components:
             if len(component) < 1:
                 random_pos = random.choice(list(nouns_adjectives_dict.keys()))  # Choose either a noun or an adjective
                 random_word = random.choice(nouns_adjectives_dict[random_pos])  # Select a random value from the POS
@@ -63,7 +64,7 @@ def createNewTitle(nouns, adjectives):
     return title_section
 
 
-n, a = parseExistingTitles('data/bewd.csv')
+n, a = parseExistingTitles('data/cards.csv')
 
 print(n)
 print(a)
