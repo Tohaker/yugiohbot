@@ -65,7 +65,7 @@ def createNewTitle(nouns, adjectives):
 
 
 if __name__ == '__main__':
-    n, a = parseExistingTitles('data/cards.csv')
+    n, a = parseExistingTitles('data/cards_api.csv')
 
     print(n)
     print(a)
