@@ -64,8 +64,9 @@ def createNewTitle(nouns, adjectives):
     return title_section
 
 
-n, a = parseExistingTitles('data/cards.csv')
+if __name__ == '__main__':
+    n, a = parseExistingTitles('data/cards.csv')
 
-print(n)
-print(a)
-print(createNewTitle(n, a))
+    print(n)
+    print(a)
+    print(createNewTitle(n, a))
