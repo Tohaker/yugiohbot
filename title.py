@@ -40,17 +40,21 @@ def createNewTitle(nouns, adjectives):
 
     no_sections = random.randint(1, 2)  # Select how many sections the title will have. Min 1, Max 2.
     title_section = []
+    title_section_pos = []
 
     for i in range(no_sections):
         no_components = random.randint(1, 2)  # Select how many components each section will have. Min 1, Max 2.
         component = []
+        component_pos = []
 
         j = 0
         while j < no_components:
             if len(component) < 1:
                 random_pos = random.choice(list(nouns_adjectives_dict.keys()))  # Choose either a noun or an adjective
                 random_word = random.choice(nouns_adjectives_dict[random_pos])  # Select a random value from the POS
+
                 component.append(random_word)
+                component_pos.append(random_pos)
 
                 if random_pos is 'adjectives' and no_components < 2:
                     no_components += 1  # An adjective can't be the only word, so we add an extra one if one is chosen.
@@ -60,8 +64,33 @@ def createNewTitle(nouns, adjectives):
             j += 1
 
         title_section.append(component)
+        title_section_pos.append(component_pos)
 
-    return title_section
+    if len(title_section) > 1:
+        second_section = title_section_pos[1]
+        connecting_list = ['of', 'of the', 'the']
+
+        if second_section[-1] == 'adjectives':
+            # If the last word is an adjective, we use 'of'.
+            connecting = 'of'
+        else:
+            # Otherwise just randomise between connecting phrases.
+            connecting = random.choice(connecting_list)
+
+        final_title = ""
+        i = 0
+        for section in title_section:
+            if i > 0:
+                final_title += connecting
+            for word in section:
+                final_title += word
+            i += 1
+    else:
+        final_title = ""
+        for word in title_section[0]:
+            final_title += word
+
+    return final_title
 
 
 if __name__ == '__main__':

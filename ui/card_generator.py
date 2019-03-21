@@ -39,17 +39,7 @@ class CardGenerator(QWidget):
         n, a = title.parseExistingTitles('../data/cards.csv')
         t = title.createNewTitle(n, a)
 
-        new_t = ""
-        i = 0
-
-        for section in t:
-            if i > 0:
-                new_t += "of the "
-            for word in section:
-                new_t = new_t + word + " "
-            i += 1
-
-        self.titleLabel.setText(new_t)
+        self.titleLabel.setText(t)
 
         QApplication.restoreOverrideCursor()
 
