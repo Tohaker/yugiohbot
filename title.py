@@ -81,14 +81,14 @@ def createNewTitle(nouns, adjectives):
         i = 0
         for section in title_section:
             if i > 0:
-                final_title += connecting
+                final_title += connecting + ' '
             for word in section:
-                final_title += word
+                final_title += word + ' '
             i += 1
     else:
         final_title = ""
         for word in title_section[0]:
-            final_title += word
+            final_title += word + ' '
 
     return final_title
 

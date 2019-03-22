@@ -10,6 +10,8 @@ class CardGenerator(QWidget):
         self.initUI()
         self.generateButton.clicked.connect(self.generateTitle)
 
+        self.n, self.a = title.parseExistingTitles('../data/cards_api.csv')
+
     def initUI(self):
         self.generateButton = QPushButton("Generate")
         self.titleLabel = QLabel()
@@ -36,8 +38,7 @@ class CardGenerator(QWidget):
     def generateTitle(self):
         QApplication.setOverrideCursor(Qt.WaitCursor)
 
-        n, a = title.parseExistingTitles('../data/cards.csv')
-        t = title.createNewTitle(n, a)
+        t = title.createNewTitle(self.n, self.a)
 
         self.titleLabel.setText(t)
 
