@@ -2,12 +2,15 @@
 # https://www.yugiohcardmaker.net/ycmaker/createcard.php?name=&cardtype=Monster&subtype=normal&attribute=Light&level=1
 # &rarity=Common&picture=&circulation=&set1=&set2=&type=&carddescription=&atk=&def=&creator=&year=2019&serial=
 
+# https://www.yugiohcardmaker.net/ycmaker/createcard.php?name=&cardtype=Spell&trapmagictype=Quick-Play&rarity=Common
+# &picture=&circulation=&set1=&set2=&carddescription=&creator=&year=2019&serial=
+
 import requests
 import shutil
 
 def constructRequest(**kwargs):
     base_url = "https://www.yugiohcardmaker.net/ycmaker/createcard.php?"
-    url_args = ['name', 'cardtype', 'subtype', 'attribute', 'level', 'rarity', 'picture', 'circulation', 'set1', 'set2',
+    url_args = ['name', 'cardtype', 'trapmagictype', 'subtype', 'attribute', 'level', 'rarity', 'picture', 'circulation', 'set1', 'set2',
                 'type', 'carddescription', 'atk', 'def', 'creator', 'year', 'serial']
     url_dict = {}
 
