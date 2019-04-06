@@ -1,7 +1,9 @@
 from pyexcel_ods3 import get_data
 import pandas as pd
 import requests
+import urllib.request
 import json
+import os
 
 def importFromCSV():
     # Import the ODS file to a dict.
@@ -47,5 +49,34 @@ def importFromAPI():
     else:
         return None
 
+def downloadImagesFromAPI():
+    directory = 'images'
+
+    if not os.path.exists(directory):  # Create an image directory if one does not already exist.
+        os.makedirs(directory)
+
+    # Get the data for all cards from the API.
+    response = requests.get('https://db.ygoprodeck.com/api/v4/cardinfo.php')
+
+    if response.status_code == 200:
+        j = json.loads(response.content.decode('utf-8'))
+        count = 1
+
+        # The way this API structures its data means we have access the 1st element which contains all the cards.
+        for card in j[0]:
+            imageUrl = card['image_url']
+            downloadLocation = directory + '/' + card['id'] + '.jpg'
+            try:
+                urllib.request.urlretrieve(imageUrl, downloadLocation)
+                print("Downloaded Image " + str(count))
+                count += 1
+            except:
+                print("Error occurred when downloading image " + card['id'])
+                count -= 1
+
+        print("Downloaded " + str(count) + " images")
+    else:
+        print("Error occurred when accessing card list.")
+
 if __name__ == '__main__':
-    importFromAPI()
+    downloadImagesFromAPI()
