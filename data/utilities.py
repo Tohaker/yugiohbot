@@ -4,6 +4,7 @@ import requests
 import urllib.request
 import json
 import os
+import cv2
 
 def importFromCSV():
     # Import the ODS file to a dict.
@@ -49,7 +50,8 @@ def importFromAPI():
     else:
         return None
 
-def downloadImagesFromAPI():
+
+def downloadAndCropImagesFromAPI():
     directory = 'images'
 
     if not os.path.exists(directory):  # Create an image directory if one does not already exist.
@@ -70,6 +72,8 @@ def downloadImagesFromAPI():
                 urllib.request.urlretrieve(imageUrl, downloadLocation)
                 print("Downloaded Image " + str(count))
                 count += 1
+                cropImage(directory, card['id'] + '.jpg')
+                print("Cropped Image")
             except:
                 print("Error occurred when downloading image " + card['id'])
                 count -= 1
@@ -78,5 +82,26 @@ def downloadImagesFromAPI():
     else:
         print("Error occurred when accessing card list.")
 
+
+def cropImage(directory, imageName):
+    croppedDir = 'cropped'
+
+    if not os.path.exists(croppedDir):  # Create a cropped image directory if one does not already exist.
+        os.makedirs(croppedDir)
+
+    image = directory + "/" + imageName
+    cropped = croppedDir + '/' + imageName
+
+    img = cv2.imread(image)
+    x0 = 49
+    y0 = 111
+    x1 = 371
+    y1 = 433
+
+    crop_img = img[y0:y1, x0:x1]
+    cv2.imwrite(cropped, crop_img)
+
+
 if __name__ == '__main__':
-    downloadImagesFromAPI()
+    downloadAndCropImagesFromAPI()
+
