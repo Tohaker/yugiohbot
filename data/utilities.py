@@ -30,22 +30,27 @@ def importFromCSV():
 
 def importFromAPI():
     # Get the data for all cards from the API.
-    response = requests.get('https://db.ygoprodeck.com/api/v4/cardinfo.php')
+    response = requests.get('https://db.ygoprodeck.com/api/v5/cardinfo.php')
 
     # Create a new Dataframe and Array to store the card names in.
-    output = pd.DataFrame(columns=['card'])
+    output = pd.DataFrame(columns=['card', 'desc'])
     card_names = []
+    card_desc = []
 
     if response.status_code == 200:
         j = json.loads(response.content.decode('utf-8'))
 
         # The way this API structures its data means we have access the 1st element which contains all the cards.
-        for card in j[0]:
+        for card in j:
             name = card['name']  # Get the name from each card. It is a 'dict' object.
+            description = card['desc']
             print(name)
+            print(description)
             card_names.append(name)
+            card_desc.append(description)
 
         output['card'] = card_names
+        output['desc'] = card_desc
         output.to_csv('cards_api.csv', index=False)  # Output to a CSV.
     else:
         return None
@@ -58,7 +63,7 @@ def downloadAndCropImagesFromAPI():
         os.makedirs(directory)
 
     # Get the data for all cards from the API.
-    response = requests.get('https://db.ygoprodeck.com/api/v4/cardinfo.php')
+    response = requests.get('https://db.ygoprodeck.com/api/v5/cardinfo.php')
 
     if response.status_code == 200:
         j = json.loads(response.content.decode('utf-8'))
@@ -103,5 +108,4 @@ def cropImage(directory, imageName):
 
 
 if __name__ == '__main__':
-    downloadAndCropImagesFromAPI()
-
+    importFromAPI()
