@@ -118,4 +118,5 @@ def getCardIDs(file):
 
 
 if __name__ == '__main__':
-    print(getCardIDs('cards_api.csv'))
+    importFromAPI()
+    downloadAndCropImagesFromAPI()
