@@ -1,5 +1,6 @@
 from pyexcel_ods3 import get_data
 import pandas as pd
+import numpy as np
 import requests
 import urllib.request
 import json
@@ -33,7 +34,8 @@ def importFromAPI():
     response = requests.get('https://db.ygoprodeck.com/api/v5/cardinfo.php')
 
     # Create a new Dataframe and Array to store the card names in.
-    output = pd.DataFrame(columns=['card', 'desc'])
+    output = pd.DataFrame(columns=['id', 'card', 'desc'])
+    card_ids = []
     card_names = []
     card_desc = []
 
@@ -42,13 +44,16 @@ def importFromAPI():
 
         # The way this API structures its data means we have access the 1st element which contains all the cards.
         for card in j:
+            id = card['id']
             name = card['name']  # Get the name from each card. It is a 'dict' object.
             description = card['desc']
             print(name)
             print(description)
+            card_ids.append(id)
             card_names.append(name)
             card_desc.append(description)
 
+        output['id'] = card_ids
         output['card'] = card_names
         output['desc'] = card_desc
         output.to_csv('cards_api.csv', index=False)  # Output to a CSV.
@@ -107,5 +112,11 @@ def cropImage(directory, imageName):
     cv2.imwrite(cropped, crop_img)
 
 
+def getCardIDs(file):
+    table = pd.read_csv(file)
+    return table['id'].tolist()
+
+
 if __name__ == '__main__':
     importFromAPI()
+    downloadAndCropImagesFromAPI()

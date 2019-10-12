@@ -1,0 +1,7 @@
+nltk
+pandas
+textblob
+boto3
+botocore
+selenium
+chromedriver-install

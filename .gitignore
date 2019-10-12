@@ -53,3 +53,5 @@ wheels/
 # Data files
 *.csv
 *.jpg
+*.png
+*.log
