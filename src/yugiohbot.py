@@ -1,5 +1,4 @@
-from src import title, text
-from build.src import card
+from src import title, text, card
 import src.data.utilities as utils
 import random
 import os
@@ -19,6 +18,7 @@ def downloadImageFromS3(file):
 
 
 def setup(filename):
+    os.mkdir('results')
     n, a = title.parseExistingTitles(filename)
     p = text.splitDescriptions(filename)
     return n, a, p
