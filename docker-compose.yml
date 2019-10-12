@@ -7,7 +7,5 @@ services:
       - PYTHONPATH=/var/task/src:/var/task/lib
       - PATH=/var/task/bin
       - AWS_BUCKET_NAME=yu-gi-oh-images
-      - AWS_ACCESS_KEY_ID=AKIAQKCUC2EFTRFDY5UQ
-      - AWS_SECRET_ACCESS_KEY=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
     volumes:
       - ./src/:/var/task/src/
