@@ -1,13 +1,11 @@
 import sys
 import os
-import math
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QApplication
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-import title
-import text
-import card
-import data.utilities as utils
+from src import title, text
+from build.src import card
+import src.data.utilities as utils
 import random
 
 
