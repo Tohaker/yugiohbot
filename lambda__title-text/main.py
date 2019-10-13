@@ -1,5 +1,6 @@
-import lambda__nlp.text as text
-import lambda__nlp.title as title
+import text
+import title
+
 
 def lambda_handler(event, context):
     source_file = 'cards_api.csv'
@@ -11,3 +12,7 @@ def lambda_handler(event, context):
     card_text = text.generateCardText(phrases)
 
     return {'title': card_title, 'text': card_text}
+
+
+if __name__ == '__main__':
+    print(lambda_handler(1, 2))

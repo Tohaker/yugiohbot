@@ -1,7 +1,9 @@
-import pandas as pd
-import nltk.data
-import re
+import csv
+import logging
 import random
+import re
+
+import nltk.data
 
 
 def generateCardText(phrases):
@@ -40,7 +42,20 @@ def generateCardText(phrases):
 
 
 def splitDescriptions(file):
-    existing_desc = pd.read_csv(file)['desc'].dropna().values.tolist()
+    existing_desc = []
+
+    try:
+        with open(file, encoding="utf8") as csvfile:
+            read_csv = csv.reader(csvfile)
+            for row in read_csv:
+                if read_csv.line_num != 1:
+                    existing_desc.append(row[2])
+    except FileNotFoundError as fe:
+        logging.debug('File: ' + file + ' could not be found.\n' + str(fe))
+        return existing_desc
+    except Exception as e:
+        logging.debug('An unexpected error occured: ' + str(e))
+
     phrases = []
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 

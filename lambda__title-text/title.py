@@ -1,12 +1,17 @@
-import pandas as pd
 from textblob import TextBlob
 import random
+import csv
 
 
 def parseExistingTitles(file):
+    existing_names = []
 
-    # Read in the card names from a CSV file to a list, ignoring empty rows within the 'Card Name' column.
-    existing_names = pd.read_csv(file)['card'].dropna().values.tolist()
+    # Read in the card names from a CSV file to a list.
+    with open(file, encoding="utf8") as csvfile:
+        read_csv = csv.reader(csvfile)
+        for row in read_csv:
+            if read_csv.line_num != 1:
+                existing_names.append(row[1])
 
     nouns = []
     adjectives = []
